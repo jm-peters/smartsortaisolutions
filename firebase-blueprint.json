@@ -1,0 +1,16 @@
+{
+  "collections": {
+    "newsletter_subscriptions": {
+      "schema": {
+        "email": { "type": "string" },
+        "subscribedAt": { "type": "timestamp" },
+        "source": { "type": "string" }
+      },
+      "indexes": [],
+      "rules": {
+        "read": "false",
+        "write": "true"
+      }
+    }
+  }
+}

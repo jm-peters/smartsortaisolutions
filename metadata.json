@@ -1,0 +1,6 @@
+{
+  "name": "Smartsort Solutions",
+  "description": "Simplifying credit tracking, sales logging, and payment reconciliation for micro- and macro-businesses via WhatsApp and USSD.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.gitignore
+README.md
+.env
+.env.example
+firebase-applet-config.json
+firebase-blueprint.json
+firestore.rules
+metadata.json
