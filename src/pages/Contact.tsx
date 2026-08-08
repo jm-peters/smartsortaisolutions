@@ -28,7 +28,7 @@ export default function Contact({ config }: ContactProps) {
     if (!formData.phone.trim()) {
       tempErrors.phone = "Phone number is required.";
     } else if (!/^\+?[0-9\s-]{9,15}$/.test(formData.phone)) {
-      tempErrors.phone = "Provide a valid phone number (e.g., +254 757 706 978).";
+      tempErrors.phone = "Provide a valid phone number (e.g., +254 712 345 678).";
     }
     if (!formData.county) tempErrors.county = "Please select your county.";
     if (!formData.message.trim()) tempErrors.message = "Message cannot be empty.";

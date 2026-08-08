@@ -28,7 +28,7 @@ export default function WhatsAppDemo() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const presets = [
-    { label: "Log KES 1,200 for Papa Kibaki", text: "Papa Kibaki 1200 maize meal and sugar" },
+    { label: "Log KES 1,200 for john", text: "john 1200 maize meal and sugar" },
     { label: "Check unpaid balances", text: "balances" },
     { label: "Log M-Pesa KES 450 payment", text: "MPESA QTX72HG6Y Mama Mboga 450" }
   ];
@@ -64,8 +64,8 @@ export default function WhatsAppDemo() {
       let isInteractive = false;
 
       const lower = textToSend.toLowerCase();
-      if (lower.includes("papa kibaki")) {
-        replyText = "Ledger logged. A confirmation request has been sent to Papa Kibaki (+254 712 *** 890) for KES 1,200. You will be notified upon confirmation.";
+      if (lower.includes("john")) {
+        replyText = "Ledger logged. A confirmation request has been sent to john (+254 712 *** 890) for KES 1,200. You will be notified upon confirmation.";
         
         // Trigger customer side response after 3 seconds
         setTimeout(() => {
@@ -74,7 +74,7 @@ export default function WhatsAppDemo() {
             {
               id: `cust-notif-${Date.now()}`,
               sender: "bot",
-              text: "[To Papa Kibaki]: Mama Neri has logged a credit sale of KES 1,200 (maize meal and sugar). Do you confirm this transaction?",
+              text: "[To john]: Mama Neri has logged a credit sale of KES 1,200 (maize meal and sugar). Do you confirm this transaction?",
               time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
               isInteractive: true,
               options: ["Confirm Amount", "Dispute Amount"]
@@ -83,7 +83,7 @@ export default function WhatsAppDemo() {
         }, 2000);
 
       } else if (lower.includes("balances")) {
-        replyText = "*Smartsort Active Balances Summary*\n\n1. *Papa Kibaki*: KES 3,400 (Last updated: Today)\n2. *Mama Mboga*: KES 850 (Last updated: Yesterday)\n3. *Baba Jomo*: KES 1,500 (Last updated: 3 days ago)\n\nTotal credit outstanding: *KES 5,750*. Reply with the customer's name to send a manual WhatsApp reminder.";
+        replyText = "*Smartsort Active Balances Summary*\n\n1. *john*: KES 3,400 (Last updated: Today)\n2. *Mama Mboga*: KES 850 (Last updated: Yesterday)\n3. *Baba Jomo*: KES 1,500 (Last updated: 3 days ago)\n\nTotal credit outstanding: *KES 5,750*. Reply with the customer's name to send a manual WhatsApp reminder.";
       } else if (lower.includes("mpesa") || lower.includes("qtx")) {
         replyText = "*Payment Reconciled.* M-Pesa reference QTX72HG6Y confirmed. Received KES 450 from Mama Mboga. Her outstanding balance has been reduced from KES 850 to *KES 400*. SMS receipt sent to customer.";
       } else {
@@ -123,7 +123,7 @@ export default function WhatsAppDemo() {
           sender: "bot",
           text: isConfirm
             ? "*Papa Kibaki confirmed.* The transaction is marked CONFIRMED. Your ledger has been updated, and credit-building metrics have been logged securely."
-            : "*Dispute logged.* Papa Kibaki declined. Transaction marked DISPUTED. Please reach out to Papa Kibaki to reconcile, or text the corrected amount.",
+            : "*Dispute logged.* john declined. Transaction marked DISPUTED. Please reach out to Papa Kibaki to reconcile, or text the corrected amount.",
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
       ]);

@@ -89,22 +89,22 @@ export default function About({ config, onPageChange }: AboutProps) {
 
   const team = [
     {
-      name: "Peter Ngecu",
+      name: "Peter Ngechu",
       role: "Co-Founder & CEO",
       bio: "Over 8 years in digital logistics and wholesale distributions. Dedicated to bringing financial security and structured ledger software to the informal merchant economy.",
       avatar: "PN"
     },
     {
-      name: "Wanjiku Njoroge",
+      name: "Ann Wanjiku Njoroge",
       role: "Operations & Merchant Growth",
       bio: "Formerly a retail coordinator at major East African consumer goods brands. Focuses on user-experience design and training modules for shop owners.",
       avatar: "WN"
     },
     {
-      name: "Kamau Otieno",
+      name: "Geofrey Otieno",
       role: "Lead Fintech Architect",
       bio: "Expert in Safaricom Daraja integration, SMS gateway infrastructures, and scalable database synchronization. Ensures the platform runs with 99.9% uptime.",
-      avatar: "KO"
+      avatar: "GO"
     }
   ];
 
