@@ -18,16 +18,13 @@ import LegalPage from "./components/LegalPage";
 const DEFAULT_CONFIG: BusinessConfig = {
   brandName: "Smartsort Solutions",
   legalName: "Smartsort Solutions",
-  address: "Suite 4B, OTC Plaza , Opposite KCB Bank, Moi Avenue, Nairobi",
+  address: "Suite 4B, OTC Plaza, Opposite KCB Bank, Moi Avenue, Nairobi",
   county: "Nairobi County",
-  email: "support@smartsortsolutions.com",
-    email: "smartsortsolutions04@gmail.com",
+  email: "smartsortsolutions04@gmail.com",
   phone: "+254 757706978",
   whatsappNumber: "+254 108970183",
   dailyFee: "KES 20",
-  websiteUrl: "https://smartsortaisolutions.vercel.app",
-    websiteUrl: "https://smartsortsolutions.com",
-
+  websiteUrl: "https://roastme.site"
 };
 
 const normalizePath = (path: string): string => {
