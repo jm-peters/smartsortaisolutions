@@ -52,7 +52,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
     {
       icon: <Smartphone className="w-5 h-5 text-blue-600" />,
       title: "USSD Feature Phone Menu",
-      description: "No smartphone? Simply dial our custom USSD code *384*45# from any basic phone to register credit lines instantly."
+      description: "No smartphone? Simply dial our custom USSD code *384*12924# from any basic phone to register credit lines instantly."
     },
     {
       icon: <Coins className="w-5 h-5 text-blue-600" />,
@@ -312,7 +312,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
                     Keep track of credit books via WhatsApp & USSD
                   </h3>
                   <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-                    Designed for wholesale suppliers and neighborhood retail merchants. Access a secured ledger from any standard mobile phone via USSD codes (<strong className="text-blue-600">*384*45#</strong>) or instantly logging transactions on WhatsApp.
+                    Designed for wholesale suppliers and neighborhood retail merchants. Access a secured ledger from any standard mobile phone via USSD codes (<strong className="text-blue-600">*384*12924#</strong>) or instantly logging transactions on WhatsApp.
                   </p>
 
                   <div className="space-y-4">

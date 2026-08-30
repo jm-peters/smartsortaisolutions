@@ -33,7 +33,7 @@ export default function LegalPage({ type, initialProduct = "universal", config, 
 Smartsort Credit Manager Privacy Policy
 Last Updated: June 26, 2026
 
-This Privacy Policy governs the "Smartsort Credit Manager" service (operated by ${config.legalName}), which includes our automated WhatsApp Business ledger utility, our basic cellular USSD dialer platform (*384*45#), and the associated merchant synchronization systems.
+This Privacy Policy governs the "Smartsort Credit Manager" service (operated by ${config.legalName}), which includes our automated WhatsApp Business ledger utility, our basic cellular USSD dialer platform (*384*12924#), and the associated merchant synchronization systems.
 
 Smartsort Credit Manager is built specifically as a secure, high-performance, and lightweight ledger tool for Kenyan retail merchants, wholesale distributors, and shopkeepers. We understand the critical confidentiality of your commercial ledger and outstanding debt logs, and we protect this data with industry-grade cloud credentials.
 
@@ -236,7 +236,7 @@ If you have any questions regarding data security, please contact us:
 Smartsort Credit Manager Terms of Service
 Last Updated: June 26, 2026
 
-These Terms of Service ("Terms") govern your use of the "Smartsort Credit Manager" service (operated by ${config.legalName}), including our WhatsApp ledger utility, our basic cellular USSD system (*384*45#), and the merchant synchronization dashboards.
+These Terms of Service ("Terms") govern your use of the "Smartsort Credit Manager" service (operated by ${config.legalName}), including our WhatsApp ledger utility, our basic cellular USSD system (*384*12924#), and the merchant synchronization dashboards.
 
 By registering for a Credit Manager account, activating our USSD interface, or exchanging conversational commands with our WhatsApp ledger bot, you agree to these binding Terms.
 

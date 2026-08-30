@@ -189,7 +189,7 @@ export default function About({ config, onPageChange }: AboutProps) {
               Access Ledgers Offline via USSD
             </h2>
             <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
-              No internet? No smartphone? No problem. Smartsort operates on any basic mobile phone across Kenya via our dedicated USSD code <code className="text-blue-400 font-mono font-bold bg-slate-900 px-1.5 py-0.5 rounded">*384*45#</code>.
+              No internet? No smartphone? No problem. Smartsort operates on any basic mobile phone across Kenya via our dedicated USSD code <code className="text-blue-400 font-mono font-bold bg-slate-900 px-1.5 py-0.5 rounded">*384*12924#</code>.
             </p>
           </div>
 
@@ -215,7 +215,7 @@ export default function About({ config, onPageChange }: AboutProps) {
                   <div>
                     <h4 className="text-sm font-bold text-white">Dial the Smartsort code</h4>
                     <p className="text-slate-400 text-xs mt-1 leading-relaxed">
-                      Dial <strong className="text-blue-400 font-mono">*384*45#</strong> on your phone's dialer. It takes less than 2 seconds to establish a secure ledger session.
+                      Dial <strong className="text-blue-400 font-mono">*384*12924#</strong> on your phone's dialer. It takes less than 2 seconds to establish a secure ledger session.
                     </p>
                   </div>
                 </div>
@@ -286,7 +286,7 @@ export default function About({ config, onPageChange }: AboutProps) {
                         </div>
                         <div className="space-y-1.5">
                           <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Phone Dialer</h4>
-                          <p className="text-2xl font-mono font-extrabold text-white tracking-wide">*384*45#</p>
+                          <p className="text-2xl font-mono font-extrabold text-white tracking-wide">*384*12924#</p>
                         </div>
                         <button
                           onClick={handleDial}
