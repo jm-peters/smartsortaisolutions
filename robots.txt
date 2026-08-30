@@ -21,4 +21,6 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+Sitemap: https://roastme.site/sitemap.xml
+Sitemap: https://smartsortsolutions.vercel.app/sitemap.xml
 Sitemap: https://www.smartsortsolutions.com/sitemap.xml

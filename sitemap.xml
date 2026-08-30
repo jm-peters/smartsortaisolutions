@@ -1,66 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Homepage — highest priority, crawled most frequently -->
+  <!-- Homepage — current live domain and forwarding domains -->
   <url>
-    <loc>https://www.smartsortsolutions.com/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://roastme.site/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Product page — SCM credit manager, core commercial page -->
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.smartsortsolutions.com/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Product page -->
+  <url>
+    <loc>https://roastme.site/scm</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/scm</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <url>
     <loc>https://www.smartsortsolutions.com/scm</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Features page -->
   <url>
+    <loc>https://roastme.site/features</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/features</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.smartsortsolutions.com/features</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Pricing page -->
   <url>
+    <loc>https://roastme.site/pricing</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/pricing</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.smartsortsolutions.com/pricing</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- About page -->
   <url>
+    <loc>https://roastme.site/about</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/about</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://www.smartsortsolutions.com/about</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <!-- Contact page -->
   <url>
-    <loc>https://www.smartsortsolutions.com/contact</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://roastme.site/contact</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Privacy Policy — required for Google compliance and Meta verification -->
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/contact</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.smartsortsolutions.com/contact</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://roastme.site/privacy-policy</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/privacy-policy</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <url>
     <loc>https://www.smartsortsolutions.com/privacy-policy</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <!-- Terms of Service -->
   <url>
+    <loc>https://roastme.site/terms</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://smartsortsolutions.vercel.app/terms</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
     <loc>https://www.smartsortsolutions.com/terms</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
