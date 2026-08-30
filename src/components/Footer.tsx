@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Mail, Phone, MapPin, Shield, Scroll, Check, Loader2, DollarSign } from "lucide-react";
 import { BusinessConfig } from "../types";
+import { subscribeToNewsletter } from "../lib/firebase";
 
 interface FooterProps {
   config: BusinessConfig;
@@ -20,7 +21,7 @@ export default function Footer({ config, onPageChange }: FooterProps) {
   const handleSubscribe = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setStatus("error");
@@ -29,9 +30,15 @@ export default function Footer({ config, onPageChange }: FooterProps) {
     }
 
     setStatus("submitting");
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setStatus("success");
-    setEmail("");
+
+    try {
+      await subscribeToNewsletter(email);
+      setStatus("success");
+      setEmail("");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Subscription failed. Please try again later.");
+    }
   };
 
   return (
