@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react";
+import { Component, ReactNode, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { BusinessConfig } from "./types";
 import Navigation from "./components/Navigation";
@@ -14,6 +14,45 @@ import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
 import LegalPage from "./components/LegalPage";
+import ErrorPage from "./components/ErrorPage";
+import { blogPosts } from "./data/blog";
+
+interface ErrorBoundaryProps {
+  config: BusinessConfig;
+  onNavigate: (page: string) => void;
+  children: ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class AppErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  private readonly boundaryProps: ErrorBoundaryProps;
+  state: ErrorBoundaryState = { hasError: false };
+
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.boundaryProps = props;
+  }
+
+  private handleNavigate = (page: string) => {
+    this.state = { hasError: false };
+    this.boundaryProps.onNavigate(page);
+  };
+
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <ErrorPage config={this.boundaryProps.config} type="500" onNavigate={this.handleNavigate} />;
+    }
+
+    return this.boundaryProps.children;
+  }
+}
 
 const DEFAULT_CONFIG: BusinessConfig = {
   brandName: "Smartsort Solutions",
@@ -43,6 +82,24 @@ const normalizePath = (path: string): string => {
     return "terms/livegrid";
   }
   return clean;
+};
+
+const isKnownRoute = (path: string): boolean => {
+  const staticRoutes = new Set([
+    "home",
+    "about",
+    "contact",
+    "pricing",
+    "blog",
+    "privacy",
+    "terms",
+    "privacy/credit-manager",
+    "privacy/livegrid",
+    "terms/credit-manager",
+    "terms/livegrid",
+  ]);
+
+  return staticRoutes.has(path) || blogPosts.some((post) => path === `blog/${post.id}`);
 };
 
 export default function App() {
@@ -98,6 +155,10 @@ export default function App() {
   }, []);
 
   const renderPage = () => {
+    if (!isKnownRoute(currentPage)) {
+      return <ErrorPage config={config} type="404" onNavigate={handlePageChange} />;
+    }
+
     if (currentPage.startsWith("privacy")) {
       const product = currentPage === "privacy/credit-manager" 
         ? "credit-manager" 
@@ -135,35 +196,37 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
-      {/* Top Navigation */}
-      <Navigation
-        config={config}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+    <AppErrorBoundary config={config} onNavigate={handlePageChange}>
+      <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+        {/* Top Navigation */}
+        <Navigation
+          config={config}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
 
-      {/* Main Content Area */}
-      <main className="flex-1 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentPage}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {renderPage()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+        {/* Main Content Area */}
+        <main className="flex-1 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {renderPage()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      {/* Footer Details */}
-      <Footer
-        config={config}
-        onPageChange={handlePageChange}
-      />
-    </div>
+        {/* Footer Details */}
+        <Footer
+          config={config}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </AppErrorBoundary>
   );
 }
 
