@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { Mail, Phone, MapPin, Clock, MessageSquare, CheckCircle, AlertTriangle, Send } from "lucide-react";
 import { BusinessConfig } from "../types";
 
@@ -15,8 +16,7 @@ export default function Contact({ config }: ContactProps) {
     message: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, handleSubmit] = useForm("xgaedyvn");
 
   const countiesList = [
     "Nairobi", "Mombasa", "Kiambu", "Nakuru", "Uasin Gishu", "Kisumu", "Machakos", "Meru", "Nyeri", "Kajiado", "Other"
@@ -37,23 +37,10 @@ export default function Contact({ config }: ContactProps) {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
-
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        name: "",
-        shopName: "",
-        phone: "",
-        county: "",
-        message: ""
-      });
-    }, 1500);
+    handleSubmit(e);
   };
 
   return (
@@ -155,7 +142,7 @@ export default function Contact({ config }: ContactProps) {
           <div className="lg:col-span-7" id="contact-form-container">
             <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm text-left">
               
-              {isSubmitted ? (
+              {state.succeeded ? (
                 <div className="py-12 px-4 text-center space-y-4">
                   <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
                     <CheckCircle className="w-8 h-8" />
@@ -166,15 +153,9 @@ export default function Contact({ config }: ContactProps) {
                   <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
                     Thank you for reaching out to Smartsort Solutions. A customer agent will respond to you within two (2) business hours via WhatsApp or SMS.
                   </p>
-                  <button
-                    onClick={() => setIsSubmitted(false)}
-                    className="text-xs font-bold text-slate-900 underline pt-4 cursor-pointer"
-                  >
-                    Send another message
-                  </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={submitForm} className="space-y-5">
                   <h3 className="text-lg font-bold text-slate-900 tracking-tight mb-2">
                     Send us a Message
                   </h3>
@@ -186,6 +167,8 @@ export default function Contact({ config }: ContactProps) {
                     </label>
                     <input
                       type="text"
+                      name="name"
+                      required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all"
@@ -197,6 +180,7 @@ export default function Contact({ config }: ContactProps) {
                         {errors.name}
                       </p>
                     )}
+                    <ValidationError field="name" errors={state.errors} className="text-xs text-rose-600 mt-1" />
                   </div>
 
                   {/* Optional Shop Name Input */}
@@ -206,6 +190,7 @@ export default function Contact({ config }: ContactProps) {
                     </label>
                     <input
                       type="text"
+                      name="shopName"
                       value={formData.shopName}
                       onChange={(e) => setFormData({ ...formData, shopName: e.target.value })}
                       className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all"
@@ -222,6 +207,8 @@ export default function Contact({ config }: ContactProps) {
                       </label>
                       <input
                         type="text"
+                        name="phone"
+                        required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all"
@@ -233,6 +220,7 @@ export default function Contact({ config }: ContactProps) {
                           {errors.phone}
                         </p>
                       )}
+                      <ValidationError field="phone" errors={state.errors} className="text-xs text-rose-600 mt-1" />
                     </div>
 
                     {/* County Dropdown */}
@@ -241,6 +229,8 @@ export default function Contact({ config }: ContactProps) {
                         County
                       </label>
                       <select
+                        name="county"
+                        required
                         value={formData.county}
                         onChange={(e) => setFormData({ ...formData, county: e.target.value })}
                         className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all bg-white"
@@ -258,6 +248,7 @@ export default function Contact({ config }: ContactProps) {
                           {errors.county}
                         </p>
                       )}
+                      <ValidationError field="county" errors={state.errors} className="text-xs text-rose-600 mt-1" />
                     </div>
                   </div>
 
@@ -268,6 +259,8 @@ export default function Contact({ config }: ContactProps) {
                     </label>
                     <textarea
                       rows={4}
+                      name="message"
+                      required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all resize-none"
@@ -279,17 +272,18 @@ export default function Contact({ config }: ContactProps) {
                         {errors.message}
                       </p>
                     )}
+                    <ValidationError field="message" errors={state.errors} className="text-xs text-rose-600 mt-1" />
                   </div>
 
                   {/* Submit Button */}
                   <div className="pt-2">
                     <button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={state.submitting}
                       className="w-full bg-blue-600 text-white hover:bg-blue-700 font-bold px-6 py-3 rounded-full text-sm transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
                     >
                       <Send className="w-4 h-4 text-blue-100" />
-                      <span>{isSubmitting ? "Submitting..." : "Send Secure Message"}</span>
+                      <span>{state.submitting ? "Submitting..." : "Send Secure Message"}</span>
                     </button>
                   </div>
                 </form>
