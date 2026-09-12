@@ -202,7 +202,6 @@ export default function App() {
         <Navigation
           config={config}
           currentPage={currentPage}
-          onPageChange={handlePageChange}
         />
 
         {/* Main Content Area */}

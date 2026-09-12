@@ -5,10 +5,9 @@ import { BusinessConfig } from "../types";
 interface NavigationProps {
   config: BusinessConfig;
   currentPage: string;
-  onPageChange: (page: string) => void;
 }
 
-export default function Navigation({ config, currentPage, onPageChange }: NavigationProps) {
+export default function Navigation({ config, currentPage }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
@@ -19,19 +18,13 @@ export default function Navigation({ config, currentPage, onPageChange }: Naviga
     { id: "contact", label: "Contact Us" },
   ];
 
-  const handleNavClick = (pageId: string) => {
-    onPageChange(pageId);
-    setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <nav className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-slate-200 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo / Brand Name */}
-          <button
-            onClick={() => handleNavClick("home")}
+          <a
+            href="/"
             className="flex items-center gap-3 cursor-pointer focus:outline-none"
             id="nav-logo"
           >
@@ -46,15 +39,15 @@ export default function Navigation({ config, currentPage, onPageChange }: Naviga
                 {config.brandName}
               </span>
             </div>
-          </button>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <div className="flex gap-8">
               {navItems.map((item) => (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleNavClick(item.id)}
+                  href={item.id === "home" ? "/" : `/${item.id}`}
                   className={`text-sm font-medium transition-colors duration-200 cursor-pointer ${
                     currentPage === item.id
                       ? "text-blue-600"
@@ -63,19 +56,19 @@ export default function Navigation({ config, currentPage, onPageChange }: Naviga
                   id={`nav-item-${item.id}`}
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
             </div>
 
             {/* Support Call-to-action button */}
-            <button
-              onClick={() => handleNavClick("contact")}
+            <a
+              href="/contact"
               className="flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-800 font-semibold px-5 py-2 rounded-full text-sm transition-all shadow-md hover:shadow-lg cursor-pointer border-0"
               id="nav-cta-whatsapp"
             >
               <span>Get in Touch</span>
               <ArrowRight className="w-3.5 h-3.5 text-blue-400" />
-            </button>
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -96,9 +89,10 @@ export default function Navigation({ config, currentPage, onPageChange }: Naviga
         <div className="md:hidden border-t border-slate-200 bg-white shadow-xl absolute top-16 left-0 right-0 py-4 px-6 space-y-4 animate-slide-in">
           <div className="flex flex-col gap-3">
             {navItems.map((item) => (
-              <button
+              <a
                 key={item.id}
-                onClick={() => handleNavClick(item.id)}
+                href={item.id === "home" ? "/" : `/${item.id}`}
+                  onClick={() => setIsOpen(false)}
                 className={`text-left text-base font-semibold py-2 transition-colors ${
                   currentPage === item.id
                     ? "text-blue-600 border-l-2 border-blue-600 pl-2"
@@ -107,17 +101,18 @@ export default function Navigation({ config, currentPage, onPageChange }: Naviga
                 id={`mobile-nav-item-${item.id}`}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
           </div>
           <div className="pt-4 border-t border-slate-200">
-            <button
-              onClick={() => handleNavClick("contact")}
+            <a
+              href="/contact"
+              onClick={() => setIsOpen(false)}
               className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white hover:bg-slate-800 font-semibold px-4 py-3 rounded-full text-sm transition-all shadow-md border-0 cursor-pointer"
               id="mobile-nav-cta"
             >
               <span>Get in Touch</span>
-            </button>
+            </a>
           </div>
         </div>
       )}
