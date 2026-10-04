@@ -28,15 +28,13 @@ export default function Navigation({ config, currentPage }: NavigationProps) {
             className="flex items-center gap-3 cursor-pointer focus:outline-none"
             id="nav-logo"
           >
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
-              <div className="w-4 h-4 border-2 border-white rounded-sm"></div>
-            </div>
+            <img src="/smartsort-mark.svg" alt={config.legalName} className="w-9 h-9 object-contain" />
             <div className="text-left">
-              <span className="font-bold text-slate-900 text-lg tracking-tight block">
-                {config.legalName.split(" ")[0]} <span className="text-blue-600">{config.legalName.split(" ").slice(1).join(" ")}</span>
+              <span className="font-extrabold text-slate-900 text-base tracking-tight block leading-tight">
+                Smart<span className="text-blue-600">sort</span> <span className="text-emerald-600">Solutions</span>
               </span>
-              <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider block leading-none">
-                {config.brandName}
+              <span className="text-[9px] text-slate-500 font-medium block leading-tight">
+                the solution your business needs
               </span>
             </div>
           </a>

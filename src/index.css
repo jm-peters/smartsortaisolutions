@@ -17,6 +17,18 @@
   }
 }
 
+.site-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("/smartsort-mark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: min(82vw, 420px) auto;
+}
+
 /* Custom scrollbar styling for mock chat */
 .scrollbar-thin::-webkit-scrollbar {
   width: 4px;

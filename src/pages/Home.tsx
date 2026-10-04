@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { 
   ArrowRight, Check, ShieldCheck, Zap, Clock, Coins, Database, 
-  Smartphone, Play, Music, Youtube, Code, Cloud, Layers, 
+  Smartphone, Play, Music, Youtube, Code, Cloud, Layers, WifiOff,
   Plus, ExternalLink, ChevronRight, MessageSquare, Laptop, Grid
 } from "lucide-react";
 import { motion } from "motion/react";
@@ -14,7 +14,7 @@ interface HomeProps {
 }
 
 export default function Home({ config, onPageChange }: HomeProps) {
-  const [activeProductTab, setActiveProductTab] = useState<"credit" | "livegrid" | "web">("credit");
+  const [activeProductTab, setActiveProductTab] = useState<"credit" | "livegrid" | "web" | "sales">("credit");
 
   const companyProducts = [
     {
@@ -32,6 +32,14 @@ export default function Home({ config, onPageChange }: HomeProps) {
       description: "A gorgeous Android media companion integrating online video streams with local music storage folders in a unified, battery-optimized interface.",
       icon: <Music className="w-5 h-5 text-purple-600" />,
       color: "purple"
+    },
+    {
+      id: "sales" as const,
+      name: "SmartSort Sales Manager (SSM)",
+      tagline: "Phone-Only POS for Kenyan Shops",
+      description: "A simple, offline-capable point of sale for small retailers to record sales, monitor stock and profit, and keep track of customer debt.",
+      icon: <Smartphone className="w-5 h-5 text-emerald-600" />,
+      color: "emerald"
     },
     {
       id: "web" as const,
@@ -76,6 +84,24 @@ export default function Home({ config, onPageChange }: HomeProps) {
       icon: <ShieldCheck className="w-5 h-5 text-purple-600" />,
       title: "Battery & Storage Conscious",
       description: "Optimized background wake-locks to ensure zero system battery drains during active media stream rendering."
+    }
+  ];
+
+  const salesFeatures = [
+    {
+      icon: <Zap className="w-5 h-5 text-emerald-600" />,
+      title: "Fast, simple sales",
+      description: "Designed around a two-tap sale flow on the Android phone a shop owner already has."
+    },
+    {
+      icon: <WifiOff className="w-5 h-5 text-emerald-600" />,
+      title: "Works offline",
+      description: "Keep recording sales when the internet is unavailable, then sync when connectivity returns."
+    },
+    {
+      icon: <Database className="w-5 h-5 text-emerald-600" />,
+      title: "Stock, profit & deni",
+      description: "Track stock, see today's profit, and keep customer debts in one straightforward place."
     }
   ];
 
@@ -239,7 +265,27 @@ export default function Home({ config, onPageChange }: HomeProps) {
                 </motion.div>
 
                 <motion.div 
-                  className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-emerald-500 transition-all cursor-pointer sm:col-span-2" 
+                  className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-emerald-500 transition-all cursor-pointer"
+                  onClick={() => setActiveProductTab("sales")}
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.95, y: 15 },
+                    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-4">
+                    <Smartphone className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-extrabold text-slate-900 text-base">Sales Manager (SSM)</h3>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">Offline-ready phone POS for shop sales, stock, daily profit, and customer deni.</p>
+                  <span className="text-xs font-bold text-emerald-600 flex items-center gap-1 mt-4">
+                    Learn more <ChevronRight className="w-3.5 h-3.5" />
+                  </span>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-emerald-500 transition-all cursor-pointer"
                   onClick={() => setActiveProductTab("web")}
                   variants={{
                     hidden: { opacity: 0, scale: 0.95, y: 15 },
@@ -534,6 +580,104 @@ export default function Home({ config, onPageChange }: HomeProps) {
                           <p>&gt; POST /api/v1/daraja/callback ... [200 OK]</p>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeProductTab === "sales" && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div className="lg:col-span-6 space-y-6">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full">
+                      Product 04: SmartSort Sales Manager
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider border border-slate-200 px-2.5 py-1 rounded-full">
+                      Externally built
+                    </span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    A simple phone POS for the everyday duka
+                  </h3>
+                  <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+                    SMARTSORT SALES MANAGER (SSM) is a mobile-first point-of-sale app built for small retail shops in Kenya. Record sales, follow stock and profit, and keep customer debts (deni) organized from an Android phone.
+                  </p>
+                  <p className="text-emerald-700 font-bold text-sm">“Simu yako ndio cashier.”</p>
+
+                  <div className="space-y-4">
+                    {salesFeatures.map((feat) => (
+                      <div key={feat.title} className="flex gap-4 items-start">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0 text-emerald-600 mt-0.5">
+                          {feat.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-slate-900 text-sm">{feat.title}</h4>
+                          <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{feat.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href="https://ssm.roastme.site/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-3 rounded-full text-xs transition-all shadow-sm"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Download &amp; Register</span>
+                    </a>
+                    <button
+                      onClick={() => onPageChange("contact")}
+                      className="flex items-center gap-2 text-slate-600 hover:text-slate-900 font-bold px-3 py-3 text-xs transition-colors border-0 bg-transparent cursor-pointer"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Ask us about SSM</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-6">
+                  <div className="relative overflow-hidden bg-slate-950 text-white p-6 md:p-8 rounded-3xl border border-slate-800 shadow-xl">
+                    <img
+                      src="/smartsort-mark.svg"
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute -right-8 -top-8 w-64 h-64 opacity-[0.12] pointer-events-none"
+                    />
+                    <div className="relative space-y-5">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          <Smartphone className="w-4 h-4 text-emerald-400" />
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-slate-300">SSM Shop Summary</span>
+                        </div>
+                        <span className="text-[10px] px-2 py-1 bg-emerald-400/10 text-emerald-300 rounded-full font-bold">Ready offline</span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
+                          <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Today's sales</p>
+                          <p className="text-2xl font-extrabold mt-2">KES 4,850</p>
+                        </div>
+                        <div className="bg-emerald-400/10 border border-emerald-300/20 p-4 rounded-xl">
+                          <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-200">Today's profit</p>
+                          <p className="text-2xl font-extrabold text-emerald-300 mt-2">KES 1,240</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-white/5 border border-white/10 rounded-xl divide-y divide-white/10">
+                        <div className="flex items-center justify-between p-4">
+                          <span className="text-xs font-semibold text-slate-300">Stock to watch</span>
+                          <span className="text-xs font-bold text-amber-300">3 items low</span>
+                        </div>
+                        <div className="flex items-center justify-between p-4">
+                          <span className="text-xs font-semibold text-slate-300">Customer deni</span>
+                          <span className="text-xs font-bold text-white">KES 780</span>
+                        </div>
+                      </div>
+                      <p className="text-[10px] text-slate-400">Illustrative shop summary</p>
                     </div>
                   </div>
                 </div>

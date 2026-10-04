@@ -1,16 +1,16 @@
-import { Shield, FileText, Download, Printer, Check, ArrowRight, Database, Music } from "lucide-react";
+import { Shield, FileText, Download, Printer, Check, ArrowRight, Database, Music, Smartphone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { BusinessConfig } from "../types";
 
 interface LegalPageProps {
   type: "privacy" | "terms";
-  initialProduct?: "universal" | "credit-manager" | "livegrid";
+  initialProduct?: "universal" | "credit-manager" | "livegrid" | "ssm";
   config: BusinessConfig;
   onPageChange?: (pageId: string) => void;
 }
 
 export default function LegalPage({ type, initialProduct = "universal", config, onPageChange }: LegalPageProps) {
-  const [activeProduct, setActiveProduct] = useState<"universal" | "credit-manager" | "livegrid">(initialProduct);
+  const [activeProduct, setActiveProduct] = useState<"universal" | "credit-manager" | "livegrid" | "ssm">(initialProduct);
   const [downloaded, setDownloaded] = useState(false);
 
   // Sync active product when route changes externally
@@ -18,7 +18,7 @@ export default function LegalPage({ type, initialProduct = "universal", config, 
     setActiveProduct(initialProduct);
   }, [initialProduct]);
 
-  const handleProductSwitch = (product: "universal" | "credit-manager" | "livegrid") => {
+  const handleProductSwitch = (product: "universal" | "credit-manager" | "livegrid" | "ssm") => {
     setActiveProduct(product);
     if (onPageChange) {
       const pageId = product === "universal" ? type : `${type}/${product}`;
@@ -26,7 +26,7 @@ export default function LegalPage({ type, initialProduct = "universal", config, 
     }
   };
 
-  const getPrivacyContent = (product: "universal" | "credit-manager" | "livegrid") => {
+  const getPrivacyContent = (product: "universal" | "credit-manager" | "livegrid" | "ssm") => {
     switch (product) {
       case "credit-manager":
         return `
@@ -176,6 +176,21 @@ If you have any questions about this Privacy Policy, please contact us:
 - Email: ${config.email}
 - Website: ${config.websiteUrl}
 `;
+      case "ssm":
+        return `
+SMARTSORT SALES MANAGER (SSM) Privacy Information
+Last Updated: October 4, 2026
+
+SMARTSORT SALES MANAGER (SSM) is an externally built mobile-first point-of-sale app for small retail shops in Kenya. It is available at https://ssm.roastme.site/ and is designed to record sales, stock, profit, and customer debts (deni). It can be used offline and syncs when internet connectivity returns.
+
+Information entered into SSM may include shop and product details, sale and stock records, values used to calculate profit, and customer debt details. Avoid entering information that is not needed to operate your shop.
+
+SSM is operated outside this website. This website does not operate the app or receive information entered into it through ordinary app use. The external SSM operator determines how registration information and app records are stored, synced, retained, and shared. Review the privacy information provided by the SSM app or its operator before registering, and contact that operator with requests about app data.
+
+Offline entries may not be available to other devices until the app has an internet connection and completes synchronization. Check the app's sync status before relying on records from another device.
+
+For questions about this website's privacy practices, contact ${config.email}.
+`;
       case "universal":
       default:
         return `
@@ -229,7 +244,7 @@ If you have any questions regarding data security, please contact us:
     }
   };
 
-  const getTermsContent = (product: "universal" | "credit-manager" | "livegrid") => {
+  const getTermsContent = (product: "universal" | "credit-manager" | "livegrid" | "ssm") => {
     switch (product) {
       case "credit-manager":
         return `
@@ -359,6 +374,19 @@ For questions about these Terms, please contact:
 - Email: ${config.email}
 - Website: ${config.websiteUrl}
 `;
+      case "ssm":
+        return `
+SMARTSORT SALES MANAGER (SSM) Terms Information
+Last Updated: October 4, 2026
+
+SMARTSORT SALES MANAGER (SSM) is an externally built point-of-sale app for small retail shops in Kenya. This website provides information about SSM and links to https://ssm.roastme.site/ for registration and app access; it does not operate the SSM app.
+
+Your use of SSM, including registration, downloads, fees, support, and app availability, is subject to the terms provided by the SSM operator. Review those terms before registering.
+
+SSM is designed to record sales, stock, profit, and customer debts (deni) on a phone, including while offline, and to sync when connectivity returns. You are responsible for checking entries for accuracy and confirming synchronization before relying on records on another device. Profit summaries depend on the values entered into the app and are not accounting, tax, or financial advice.
+
+This website does not control the external app, its availability, or its data practices. For app-specific support, contact the SSM operator through the app or its website. For questions about this website, contact ${config.email}.
+`;
       case "universal":
       default:
         return `
@@ -394,7 +422,7 @@ If you have any questions regarding these terms, please contact us:
 
   const handleDownload = () => {
     const content = type === "privacy" ? getPrivacyContent(activeProduct) : getTermsContent(activeProduct);
-    const productLabel = activeProduct === "universal" ? "Universal" : activeProduct === "credit-manager" ? "Credit_Manager" : "LiveGrid_Player";
+    const productLabel = activeProduct === "universal" ? "Universal" : activeProduct === "credit-manager" ? "Credit_Manager" : activeProduct === "livegrid" ? "LiveGrid_Player" : "SSM";
     const filename = `${config.legalName.replace(/\s+/g, "_")}_${productLabel}_${
       type === "privacy" ? "Privacy_Policy" : "Terms_of_Service"
     }.txt`;
@@ -440,6 +468,13 @@ If you have any questions regarding these terms, please contact us:
             { num: "8", title: "Policy Updates", desc: "How we post subsequent changes and notify active users." },
             { num: "9", title: "Contact Information", desc: `Official support contact coordinates at ${config.legalName}.` }
           ];
+        case "ssm":
+          return [
+            { num: "1", title: "About SSM & Information", desc: "Externally operated app and shop records entered into the point-of-sale system." },
+            { num: "2", title: "Offline Use & Sync", desc: "Offline records may sync when connectivity returns; verify sync status." },
+            { num: "3", title: "External Operator", desc: "The SSM operator controls app data storage, retention, and support." },
+            { num: "4", title: "Website Contact", desc: `Contact ${config.legalName} about this website's privacy practices.` }
+          ];
         case "universal":
         default:
           return [
@@ -476,6 +511,13 @@ If you have any questions regarding these terms, please contact us:
             { num: "11", title: "Terms Changes", desc: "How subsequent updates are published on the portal." },
             { num: "12", title: "Contact Information", desc: "Developer support email and main domain coordinates." }
           ];
+        case "ssm":
+          return [
+            { num: "1", title: "External App & Registration", desc: "SSM app access and registration are provided by its external operator." },
+            { num: "2", title: "Records & Synchronization", desc: "Check entered sales, stock, profit values, debts, and sync status." },
+            { num: "3", title: "App Support & Data Practices", desc: "The external operator's terms govern app use and data handling." },
+            { num: "4", title: "Website Contact", desc: `Contact ${config.legalName} about this website.` }
+          ];
         case "universal":
         default:
           return [
@@ -499,11 +541,14 @@ If you have any questions regarding these terms, please contact us:
         return "Smartsort Credit Manager";
       case "livegrid":
         return "LiveGrid Media Player";
+      case "ssm":
+        return "SmartSort Sales Manager (SSM)";
       case "universal":
       default:
         return `${config.brandName} Portal`;
     }
   };
+  const effectiveDate = activeProduct === "ssm" ? "October 4, 2026" : "June 26, 2026";
 
   return (
     <div className="bg-slate-50 min-h-screen py-12 md:py-20 font-sans print:bg-white print:py-0">
@@ -544,6 +589,17 @@ If you have any questions regarding these terms, please contact us:
             <Music className="w-4 h-4" />
             <span>LiveGrid Player</span>
           </button>
+          <button
+            onClick={() => handleProductSwitch("ssm")}
+            className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 ${
+              activeProduct === "ssm"
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50"
+            }`}
+          >
+            <Smartphone className="w-4 h-4" />
+            <span>Sales Manager (SSM)</span>
+          </button>
         </div>
 
         {/* Header Block */}
@@ -553,13 +609,13 @@ If you have any questions regarding these terms, please contact us:
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full uppercase tracking-wider">
-                {type === "privacy" ? "Compliance Asset" : "Legal Framework"}
+                {activeProduct === "ssm" ? "External App Information" : type === "privacy" ? "Compliance Asset" : "Legal Framework"}
               </span>
               <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
                 {type === "privacy" ? "Privacy Policy" : "Terms of Service"}
               </h1>
               <p className="text-sm text-slate-500">
-                Official document for <strong>{getProductTitle()}</strong> &bull; Effective: June 26, 2026
+                {activeProduct === "ssm" ? "Information about" : "Official document for"} <strong>{getProductTitle()}</strong> &bull; {activeProduct === "ssm" ? "Last updated" : "Effective"}: {effectiveDate}
               </p>
             </div>
 
@@ -588,20 +644,20 @@ If you have any questions regarding these terms, please contact us:
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-200 text-xs print:hidden">
             <div>
               <p className="text-slate-400">Operator</p>
-              <p className="font-semibold text-slate-900 mt-0.5">{config.legalName}</p>
+              <p className="font-semibold text-slate-900 mt-0.5">{activeProduct === "ssm" ? "External SSM operator" : config.legalName}</p>
             </div>
             <div>
               <p className="text-slate-400">Jurisdiction</p>
-              <p className="font-semibold text-slate-900 mt-0.5">Republic of Kenya</p>
+              <p className="font-semibold text-slate-900 mt-0.5">{activeProduct === "ssm" ? "See SSM operator terms" : "Republic of Kenya"}</p>
             </div>
             <div>
-              <p className="text-slate-400">Compliance Code</p>
-              <p className="font-semibold text-slate-900 mt-0.5">KDPA-2019-REG</p>
+              <p className="text-slate-400">{activeProduct === "ssm" ? "Policy source" : "Compliance Code"}</p>
+              <p className="font-semibold text-slate-900 mt-0.5">{activeProduct === "ssm" ? "External app operator" : "KDPA-2019-REG"}</p>
             </div>
             <div>
               <p className="text-slate-400">Version Status</p>
               <p className="font-semibold text-blue-600 mt-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Active / Verified
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span> {activeProduct === "ssm" ? "External reference" : "Active / Verified"}
               </p>
             </div>
           </div>
@@ -678,9 +734,19 @@ If you have any questions regarding these terms, please contact us:
 
           {/* Footer signature inside legal block */}
           <div className="mt-12 pt-8 border-t border-slate-200 text-center space-y-2">
-            <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">Authorized Attestation</p>
-            <p className="font-sans font-bold text-slate-800">{config.legalName}</p>
-            <p className="text-xs text-slate-500">Suite 4B, Plaza 2000, Mombasa Road, Nairobi, Republic of Kenya</p>
+            {activeProduct === "ssm" ? (
+              <>
+                <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">External Operator</p>
+                <p className="font-sans font-bold text-slate-800">SMARTSORT SALES MANAGER (SSM)</p>
+                <p className="text-xs text-slate-500">This website does not operate the SSM app.</p>
+              </>
+            ) : (
+              <>
+                <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">Authorized Attestation</p>
+                <p className="font-sans font-bold text-slate-800">{config.legalName}</p>
+                <p className="text-xs text-slate-500">{config.address}, {config.county}, Republic of Kenya</p>
+              </>
+            )}
           </div>
         </div>
 

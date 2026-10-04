@@ -2,7 +2,7 @@ export async function subscribeToNewsletter(email: string): Promise<void> {
   const endpoint = (import.meta.env.VITE_NEWSLETTER_ENDPOINT || import.meta.env.VITE_FORMSPREE_ENDPOINT || "").trim();
 
   if (!endpoint) {
-    throw new Error("Newsletter endpoint is not configured. Add VITE_NEWSLETTER_ENDPOINT or VITE_FORMSPREE_ENDPOINT to your environment.");
+    throw new Error("Newsletter signups are temporarily unavailable. Please try again later.");
   }
 
   const payload = new URLSearchParams({

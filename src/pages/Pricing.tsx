@@ -9,7 +9,7 @@ interface PricingProps {
 
 export default function Pricing({ config, onPageChange }: PricingProps) {
   const [customerCount, setCustomerCount] = useState<number>(5);
-  const [activeTab, setActiveTab] = useState<"credit" | "livegrid" | "web">("credit");
+  const [activeTab, setActiveTab] = useState<"credit" | "livegrid" | "web" | "ssm">("credit");
   const [creditSubTab, setCreditSubTab] = useState<"packages" | "calculator">("packages");
 
   const packages = [
@@ -106,7 +106,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
             Transparent pricing for every software solution
           </h1>
           <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto">
-            Explore pricing structures across our product portfolio—from micro-credit ledgers, to the free LiveGrid Android app, and enterprise dashboard consultations.
+            Explore pricing structures across our product portfolio—from micro-credit ledgers and the free LiveGrid Android app to the externally hosted SSM app and enterprise consultations.
           </p>
         </div>
 
@@ -145,6 +145,17 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
             >
               <Code className="w-3.5 h-3.5 text-emerald-600" />
               <span>Custom Web Portals</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("ssm")}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
+                activeTab === "ssm"
+                  ? "bg-white text-emerald-900 shadow-sm animate-fade-in"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Sales Manager (SSM)</span>
             </button>
           </div>
         </div>
@@ -418,6 +429,34 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "ssm" && (
+          <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 md:p-12 shadow-sm space-y-8 animate-fade-in">
+            <div className="max-w-2xl space-y-5">
+              <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+                Externally built app
+              </span>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                SMARTSORT SALES MANAGER (SSM)
+              </h2>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                A phone-first point of sale for small shops in Kenya. SSM is designed to record sales offline, track stock and profit, and manage customer debts (deni), then sync when internet access returns.
+              </p>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                SSM is operated externally. Pricing, app downloads, and account registration are provided through its app website.
+              </p>
+              <a
+                href="https://ssm.roastme.site/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-3 rounded-full text-xs transition-all shadow-sm"
+              >
+                <span>Download &amp; Register</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
           </div>
         )}

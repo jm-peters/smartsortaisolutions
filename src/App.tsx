@@ -75,11 +75,17 @@ const normalizePath = (path: string): string => {
   if (clean === "livegrid-player/privacy" || clean === "livegrid-player-privacy" || clean === "livegrid-privacy" || clean === "privacy/livegrid") {
     return "privacy/livegrid";
   }
+  if (clean === "smartsort-sales-manager/privacy" || clean === "smartsort-sales-manager-privacy" || clean === "ssm-privacy" || clean === "privacy/ssm") {
+    return "privacy/ssm";
+  }
   if (clean === "smartsort-credit-manager/terms" || clean === "smartsort-credit-manager-terms" || clean === "credit-manager-terms" || clean === "terms/credit-manager") {
     return "terms/credit-manager";
   }
   if (clean === "livegrid-player/terms" || clean === "livegrid-player-terms" || clean === "livegrid-terms" || clean === "terms/livegrid") {
     return "terms/livegrid";
+  }
+  if (clean === "smartsort-sales-manager/terms" || clean === "smartsort-sales-manager-terms" || clean === "ssm-terms" || clean === "terms/ssm") {
+    return "terms/ssm";
   }
   return clean;
 };
@@ -95,8 +101,10 @@ const isKnownRoute = (path: string): boolean => {
     "terms",
     "privacy/credit-manager",
     "privacy/livegrid",
+    "privacy/ssm",
     "terms/credit-manager",
     "terms/livegrid",
+    "terms/ssm",
   ]);
 
   return staticRoutes.has(path) || blogPosts.some((post) => path === `blog/${post.id}`);
@@ -164,6 +172,8 @@ export default function App() {
         ? "credit-manager" 
         : currentPage === "privacy/livegrid" 
         ? "livegrid" 
+        : currentPage === "privacy/ssm"
+        ? "ssm"
         : "universal";
       return <LegalPage type="privacy" initialProduct={product} config={config} onPageChange={handlePageChange} />;
     }
@@ -173,6 +183,8 @@ export default function App() {
         ? "credit-manager" 
         : currentPage === "terms/livegrid" 
         ? "livegrid" 
+        : currentPage === "terms/ssm"
+        ? "ssm"
         : "universal";
       return <LegalPage type="terms" initialProduct={product} config={config} onPageChange={handlePageChange} />;
     }
@@ -198,6 +210,7 @@ export default function App() {
   return (
     <AppErrorBoundary config={config} onNavigate={handlePageChange}>
       <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+        <div aria-hidden="true" className="site-watermark" />
         {/* Top Navigation */}
         <Navigation
           config={config}

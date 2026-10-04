@@ -177,4 +177,19 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- SSM product privacy and terms -->
+  <url>
+    <loc>https://roastme.site/privacy/ssm</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://roastme.site/terms/ssm</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>

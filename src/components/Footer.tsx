@@ -47,16 +47,19 @@ export default function Footer({ config, onPageChange }: FooterProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand/About Col */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-sm">
-                <div className="w-4 h-4 border-2 border-white rounded-sm"></div>
+            <div className="flex items-center gap-3">
+              <img src="/smartsort-mark.svg" alt="SmartSort Solutions" className="w-10 h-10 object-contain" />
+              <div>
+                <span className="font-extrabold text-lg tracking-tight text-white block leading-tight">
+                  Smart<span className="text-blue-400">sort</span> <span className="text-emerald-400">Solutions</span>
+                </span>
+                <span className="text-[10px] text-slate-400 block leading-tight">
+                  the solution your business needs
+                </span>
               </div>
-              <span className="font-bold text-lg tracking-tight text-white">
-                {config.legalName.split(" ")[0]} <span className="text-blue-500">{config.legalName.split(" ").slice(1).join(" ")}</span>
-              </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              We build simple, high-performance software systems and tailored digital tools. Our premium product suite includes the offline-first <strong className="text-blue-400">Smartsort Credit Manager</strong>, the <strong className="text-blue-400">LiveGrid Media Player</strong> Android app, and custom enterprise web portals.
+              We build simple, high-performance software systems and tailored digital tools. Our product suite includes the offline-first <strong className="text-blue-400">Smartsort Credit Manager</strong>, the <strong className="text-blue-400">LiveGrid Media Player</strong>, and <a href="https://ssm.roastme.site/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300">SmartSort Sales Manager (SSM)</a>, an externally built phone POS for small shops in Kenya, alongside custom enterprise web portals.
             </p>
           </div>
 
