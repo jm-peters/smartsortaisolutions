@@ -4,7 +4,7 @@
  */
 
 import { Component, ReactNode, useState, useEffect } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { BusinessConfig } from "./types";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
@@ -28,17 +28,15 @@ interface ErrorBoundaryState {
 }
 
 class AppErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  private readonly boundaryProps: ErrorBoundaryProps;
   state: ErrorBoundaryState = { hasError: false };
 
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.boundaryProps = props;
   }
 
   private handleNavigate = (page: string) => {
-    this.state = { hasError: false };
-    this.boundaryProps.onNavigate(page);
+    this.setState({ hasError: false });
+    this.props.onNavigate(page);
   };
 
   static getDerivedStateFromError(): ErrorBoundaryState {
@@ -47,10 +45,10 @@ class AppErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState>
 
   render() {
     if (this.state.hasError) {
-      return <ErrorPage config={this.boundaryProps.config} type="500" onNavigate={this.handleNavigate} />;
+      return <ErrorPage config={this.props.config} type="500" onNavigate={this.handleNavigate} />;
     }
 
-    return this.boundaryProps.children;
+    return this.props.children;
   }
 }
 
@@ -129,7 +127,7 @@ export default function App() {
     }
   }, []);
 
-  // Set up custom navigation function to update address bar path with native View Transition support
+  // Keep the URL and active route synchronized with native View Transition support
   const handlePageChange = (pageId: string) => {
     const changeState = () => {
       setCurrentPage(pageId);
@@ -209,35 +207,36 @@ export default function App() {
 
   return (
     <AppErrorBoundary config={config} onNavigate={handlePageChange}>
-      <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
-        <div aria-hidden="true" className="site-watermark" />
-        {/* Top Navigation */}
-        <Navigation
-          config={config}
-          currentPage={currentPage}
-        />
+      <MotionConfig reducedMotion="user">
+        <div className="min-h-screen bg-slate-50 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+          <a href="#main-content" className="skip-link">Skip to main content</a>
+          <div aria-hidden="true" className="site-watermark" />
+          <Navigation
+            config={config}
+            currentPage={currentPage}
+            onNavigate={handlePageChange}
+          />
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentPage}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {renderPage()}
-            </motion.div>
-          </AnimatePresence>
-        </main>
+          <main id="main-content" tabIndex={-1} className="flex-1">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentPage}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {renderPage()}
+              </motion.div>
+            </AnimatePresence>
+          </main>
 
-        {/* Footer Details */}
-        <Footer
-          config={config}
-          onPageChange={handlePageChange}
-        />
-      </div>
+          <Footer
+            config={config}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </MotionConfig>
     </AppErrorBoundary>
   );
 }

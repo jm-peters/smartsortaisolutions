@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import type { MouseEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Search, 
@@ -97,6 +98,13 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
     if (onPageChange) {
       onPageChange("blog");
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBreadcrumbClick = (event: MouseEvent<HTMLAnchorElement>, page: string) => {
+    if (!onPageChange || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    onPageChange(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -253,10 +261,10 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumb Navigation - Excellent for Search crawler pathways */}
-          <nav className="flex items-center gap-2 text-xs text-slate-500 mb-6 font-semibold print:hidden">
-            <span className="hover:text-blue-600 cursor-pointer" onClick={() => onPageChange && onPageChange("home")}>Home</span>
+          <nav aria-label="Breadcrumbs" className="flex items-center gap-2 text-xs text-slate-500 mb-6 font-semibold print:hidden">
+            <a href="/" onClick={(event) => handleBreadcrumbClick(event, "home")} className="hover:text-blue-600">Home</a>
             <span>&bull;</span>
-            <span className="hover:text-blue-600 cursor-pointer" onClick={handleBackToBlog}>Blog</span>
+            <a href="/blog" onClick={(event) => handleBreadcrumbClick(event, "blog")} className="hover:text-blue-600">Blog</a>
             <span>&bull;</span>
             <span className="text-slate-800 line-clamp-1">{selectedPost.title}</span>
           </nav>
@@ -305,7 +313,7 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
               </div>
 
               {/* H1 Title with clean typography matching search title headings */}
-              <h1 className="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h1 className="page-title-compact text-slate-900 leading-tight">
                 {selectedPost.title}
               </h1>
 
@@ -313,7 +321,7 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
               <div className="flex items-center justify-between py-4 border-y border-slate-100 print:hidden">
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>Verified Merchant Guide</span>
+                  <span>Merchant Guide</span>
                 </div>
                 <button
                   onClick={() => handleShare(selectedPost)}
@@ -472,7 +480,7 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
             <span className="inline-flex items-center gap-1 bg-blue-500/10 text-blue-400 text-xs font-semibold px-3.5 py-1 rounded-full border border-blue-500/20">
               <BookOpen className="w-3.5 h-3.5" /> Retail & Compliance Insights
             </span>
-            <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">
+            <h1 className="page-title text-white">
               Smartsort Solutions Merchant Knowledge Base
             </h1>
             <p className="text-slate-300 text-sm md:text-base leading-relaxed">
@@ -491,6 +499,7 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
+                  aria-pressed={activeCategory === cat}
                   className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-0 ${
                     activeCategory === cat
                       ? "bg-blue-600 text-white shadow-sm font-bold"
@@ -505,12 +514,14 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
             {/* Main Search Input */}
             <div className="relative max-w-md w-full">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+              <label htmlFor="blog-search" className="sr-only">Search articles</label>
               <input
+                id="blog-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by keywords (e.g. Lipa na M-Pesa till reconciliation)..."
-                className="w-full pl-10 pr-4 py-2.5 border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl text-xs outline-none transition-all"
+                className="form-control w-full pl-10 pr-4 text-base sm:text-sm"
               />
             </div>
 
@@ -547,6 +558,9 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
         </div>
 
         {/* Blog Post Card Grid */}
+        <p className="sr-only" aria-live="polite">
+          {filteredPosts.length} {filteredPosts.length === 1 ? "article" : "articles"} found.
+        </p>
         {filteredPosts.length > 0 ? (
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -563,10 +577,15 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
             }}
           >
             {filteredPosts.map((post) => (
-              <motion.article
+              <motion.a
                 key={post.id}
-                onClick={() => handlePostClick(post)}
-                className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-md hover:border-slate-300 transition-all cursor-pointer flex flex-col group"
+                href={`/blog/${post.id}`}
+                onClick={(event) => {
+                  if (!onPageChange || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                  event.preventDefault();
+                  handlePostClick(post);
+                }}
+                className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-sm hover:border-slate-300 transition-all flex flex-col group text-inherit no-underline"
                 variants={{
                   hidden: { opacity: 0, y: 15 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
@@ -613,7 +632,7 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
                     </span>
                   </div>
                 </div>
-              </motion.article>
+              </motion.a>
             ))}
           </motion.div>
         ) : (
@@ -637,11 +656,11 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-800 text-xs font-bold rounded-full uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" /> Merchant Help Desk
             </span>
-            <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="section-title text-slate-900">
               Frequently Asked Questions (FAQ) for Kenyan Retailers
             </h2>
             <p className="text-slate-500 text-xs md:text-sm leading-relaxed">
-              Find instant, legally-verified answers to common questions regarding credit ledger books, Pochi la Biashara setups, and data security requirements in Kenya.
+              Find answers to common questions about credit ledgers, Pochi la Biashara, and data protection for Kenyan retailers.
             </p>
           </div>
 
@@ -656,7 +675,9 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="w-full flex items-center justify-between gap-4 p-5 text-left font-bold text-slate-800 text-sm md:text-base hover:bg-slate-50 cursor-pointer transition-colors border-0 bg-white"
+                    aria-expanded={isOpen}
+                    aria-controls={`blog-faq-answer-${index}`}
+                    className="w-full min-h-12 flex items-center justify-between gap-4 p-4 sm:p-5 text-left font-bold text-slate-800 text-sm md:text-base hover:bg-slate-50 cursor-pointer transition-colors border-0 bg-white"
                   >
                     <span className="flex items-start gap-3">
                       <HelpCircle className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
@@ -665,9 +686,10 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
                     {isOpen ? <ChevronUp className="w-4 h-4 shrink-0" /> : <ChevronDown className="w-4 h-4 shrink-0" />}
                   </button>
                   
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
+                  <div id={`blog-faq-answer-${index}`} aria-hidden={!isOpen} inert={!isOpen}>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -683,19 +705,21 @@ export default function Blog({ config, currentPage, onPageChange }: BlogProps) {
                           <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-bold text-slate-400">
                             <span>Related Topics:</span>
                             {faq.keywords.map((kw, kwIdx) => (
-                              <span 
+                              <button
+                                type="button"
                                 key={kwIdx} 
                                 onClick={() => setSearchQuery(kw)}
-                                className="bg-white border border-slate-200 text-slate-600 font-semibold px-2.5 py-0.5 rounded-full hover:border-blue-500 hover:text-blue-600 transition-colors cursor-pointer"
+                                className="bg-white border border-slate-200 text-slate-600 font-semibold px-2.5 py-1 rounded-full hover:border-blue-500 hover:text-blue-600 transition-colors cursor-pointer"
                               >
                                 {kw}
-                              </span>
+                              </button>
                             ))}
                           </div>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
               );
             })}

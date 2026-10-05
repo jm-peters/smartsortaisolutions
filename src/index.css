@@ -4,8 +4,78 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-canvas: #f8fafc;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  --color-line: #e2e8f0;
+  --color-brand-50: #eff6ff;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-accent-50: #ecfdf5;
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+  --color-positive: #059669;
+  --color-warning: #d97706;
+  --color-danger: #e11d48;
+  --radius-control: 0.75rem;
+  --radius-surface: 1rem;
+  --radius-panel: 1.5rem;
+  --shadow-soft: 0 1px 3px rgb(15 23 42 / 0.08);
+  --spacing-page: 1.5rem;
+  --spacing-section: 5rem;
+  --container-content: 80rem;
+  --text-page-title: 2.5rem;
+  --text-section-title: 1.875rem;
+  --text-body: 1rem;
+  --text-caption: 0.875rem;
+  --height-control: 2.75rem;
+  --color-brand-50: #eff6ff;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-accent-50: #ecfdf5;
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+  --radius-control: 0.75rem;
+  --radius-surface: 1rem;
+  --shadow-soft: 0 1px 3px rgb(15 23 42 / 0.08);
   --animate-spin-slow: spin 12s linear infinite;
   --animate-slide-in: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+:root {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-600) !important;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 @keyframes slide-in {
@@ -15,6 +85,100 @@
   to {
     transform: translateX(0);
   }
+}
+
+:root {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+.form-control {
+  min-height: var(--height-control);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.form-control:focus {
+  border-color: var(--color-brand-600);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.12);
+}
+
+.page-title,
+.section-title,
+.page-title-hero {
+  letter-spacing: 0;
+  line-height: 1.12;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.page-title-compact {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.page-title-hero {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .page-title {
+    font-size: var(--text-page-title);
+  }
+
+  .page-title-compact {
+    font-size: 2.25rem;
+  }
+
+  .page-title-hero {
+    font-size: 3.75rem;
+  }
+
+  .section-title {
+    font-size: var(--text-section-title);
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-600) !important;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .site-watermark {
@@ -27,6 +191,28 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: min(82vw, 420px) auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Custom scrollbar styling for mock chat */

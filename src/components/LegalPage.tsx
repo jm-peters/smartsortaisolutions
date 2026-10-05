@@ -609,13 +609,13 @@ If you have any questions regarding these terms, please contact us:
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full uppercase tracking-wider">
-                {activeProduct === "ssm" ? "External App Information" : type === "privacy" ? "Compliance Asset" : "Legal Framework"}
+                {activeProduct === "ssm" ? "External App Information" : type === "privacy" ? "Privacy Information" : "Terms Information"}
               </span>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="page-title-compact text-slate-900">
                 {type === "privacy" ? "Privacy Policy" : "Terms of Service"}
               </h1>
               <p className="text-sm text-slate-500">
-                {activeProduct === "ssm" ? "Information about" : "Official document for"} <strong>{getProductTitle()}</strong> &bull; {activeProduct === "ssm" ? "Last updated" : "Effective"}: {effectiveDate}
+                {activeProduct === "ssm" ? "Information about" : "Published by"} <strong>{activeProduct === "ssm" ? getProductTitle() : config.legalName}</strong> &bull; {activeProduct === "ssm" ? "Last updated" : "Effective"}: {effectiveDate}
               </p>
             </div>
 
@@ -651,13 +651,17 @@ If you have any questions regarding these terms, please contact us:
               <p className="font-semibold text-slate-900 mt-0.5">{activeProduct === "ssm" ? "See SSM operator terms" : "Republic of Kenya"}</p>
             </div>
             <div>
-              <p className="text-slate-400">{activeProduct === "ssm" ? "Policy source" : "Compliance Code"}</p>
-              <p className="font-semibold text-slate-900 mt-0.5">{activeProduct === "ssm" ? "External app operator" : "KDPA-2019-REG"}</p>
+              <p className="text-slate-400">{activeProduct === "ssm" ? "App access" : "Contact"}</p>
+              {activeProduct === "ssm" ? (
+                <a href="https://ssm.roastme.site/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline mt-0.5 inline-block">SSM website</a>
+              ) : (
+                <a href={`mailto:${config.email}`} className="font-semibold text-blue-600 hover:underline mt-0.5 inline-block">{config.email}</a>
+              )}
             </div>
             <div>
-              <p className="text-slate-400">Version Status</p>
+              <p className="text-slate-400">Document status</p>
               <p className="font-semibold text-blue-600 mt-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span> {activeProduct === "ssm" ? "External reference" : "Active / Verified"}
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span> {activeProduct === "ssm" ? "External reference" : "Published"}
               </p>
             </div>
           </div>

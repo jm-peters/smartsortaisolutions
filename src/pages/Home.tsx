@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import { 
   ArrowRight, Check, ShieldCheck, Zap, Clock, Coins, Database, 
   Smartphone, Play, Music, Youtube, Code, Cloud, Layers, WifiOff,
@@ -15,6 +16,16 @@ interface HomeProps {
 
 export default function Home({ config, onPageChange }: HomeProps) {
   const [activeProductTab, setActiveProductTab] = useState<"credit" | "livegrid" | "web" | "sales">("credit");
+
+  const handleProductCardKeyDown = (
+    event: KeyboardEvent<HTMLDivElement>,
+    product: "credit" | "livegrid" | "web" | "sales"
+  ) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setActiveProductTab(product);
+    }
+  };
 
   const companyProducts = [
     {
@@ -141,7 +152,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
                 Smartsort Solutions &bull; Multi-Product Suite
               </motion.span>
               <motion.h1 
-                className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.05]"
+                className="page-title-hero text-slate-900 leading-[1.05]"
                 variants={{
                   hidden: { opacity: 0, y: 15 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -193,16 +204,16 @@ export default function Home({ config, onPageChange }: HomeProps) {
                 }}
               >
                 <div>
-                  <p className="text-2xl md:text-3xl font-black text-slate-900">100%</p>
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">Cloud-Synced</p>
+                  <p className="text-2xl md:text-3xl font-black text-slate-900">Kenya</p>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">Local expertise</p>
                 </div>
                 <div>
-                  <p className="text-2xl md:text-3xl font-black text-slate-900">USSD & Play</p>
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">Multi-Platform</p>
+                  <p className="text-2xl md:text-3xl font-black text-slate-900">USSD + Apps</p>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">Multiple access points</p>
                 </div>
                 <div>
-                  <p className="text-2xl md:text-3xl font-black text-slate-900">KDPA</p>
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">Privacy Certified</p>
+                  <p className="text-2xl md:text-3xl font-black text-slate-900">Custom</p>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-0.5">Web systems</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -225,8 +236,12 @@ export default function Home({ config, onPageChange }: HomeProps) {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <motion.div 
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={activeProductTab === "credit"}
                   className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-blue-500 transition-all cursor-pointer" 
                   onClick={() => setActiveProductTab("credit")}
+                  onKeyDown={(event) => handleProductCardKeyDown(event, "credit")}
                   variants={{
                     hidden: { opacity: 0, scale: 0.95, y: 15 },
                     visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
@@ -245,8 +260,12 @@ export default function Home({ config, onPageChange }: HomeProps) {
                 </motion.div>
 
                 <motion.div 
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={activeProductTab === "livegrid"}
                   className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-purple-500 transition-all cursor-pointer" 
                   onClick={() => setActiveProductTab("livegrid")}
+                  onKeyDown={(event) => handleProductCardKeyDown(event, "livegrid")}
                   variants={{
                     hidden: { opacity: 0, scale: 0.95, y: 15 },
                     visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
@@ -265,8 +284,12 @@ export default function Home({ config, onPageChange }: HomeProps) {
                 </motion.div>
 
                 <motion.div 
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={activeProductTab === "sales"}
                   className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-emerald-500 transition-all cursor-pointer"
                   onClick={() => setActiveProductTab("sales")}
+                  onKeyDown={(event) => handleProductCardKeyDown(event, "sales")}
                   variants={{
                     hidden: { opacity: 0, scale: 0.95, y: 15 },
                     visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
@@ -285,8 +308,12 @@ export default function Home({ config, onPageChange }: HomeProps) {
                 </motion.div>
 
                 <motion.div
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={activeProductTab === "web"}
                   className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-left hover:border-emerald-500 transition-all cursor-pointer"
                   onClick={() => setActiveProductTab("web")}
+                  onKeyDown={(event) => handleProductCardKeyDown(event, "web")}
                   variants={{
                     hidden: { opacity: 0, scale: 0.95, y: 15 },
                     visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
@@ -320,7 +347,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
             <span className="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full">
               Engineered Product Portfolios
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="section-title text-slate-900">
               A variety of software solutions
             </h2>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -334,6 +361,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
               <button
                 key={prod.id}
                 onClick={() => setActiveProductTab(prod.id)}
+                aria-pressed={activeProductTab === prod.id}
                 className={`flex items-center gap-2.5 px-4 md:px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer border-0 ${
                   activeProductTab === prod.id
                     ? "bg-white text-slate-900 shadow-sm"
@@ -694,7 +722,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
             <span className="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full">
               Future Roadmap
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="section-title text-slate-900">
               More software solutions under active development
             </h2>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -745,7 +773,7 @@ export default function Home({ config, onPageChange }: HomeProps) {
         <div className="absolute bottom-0 right-1/4 w-82 h-82 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
 
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+          <h2 className="section-title">
             Deploy smart software solutions for your operations
           </h2>
           <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-xl mx-auto">

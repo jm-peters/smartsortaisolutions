@@ -102,8 +102,8 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full uppercase tracking-wider">
             Pricing & Models
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Transparent pricing for every software solution
+          <h1 className="page-title text-slate-900">
+            Pricing and product models
           </h1>
           <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto">
             Explore pricing structures across our product portfolio—from micro-credit ledgers and the free LiveGrid Android app to the externally hosted SSM app and enterprise consultations.
@@ -115,6 +115,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
           <div className="bg-slate-200/60 p-1.5 rounded-2xl flex flex-wrap justify-center gap-1">
             <button
               onClick={() => setActiveTab("credit")}
+              aria-pressed={activeTab === "credit"}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
                 activeTab === "credit"
                   ? "bg-white text-slate-900 shadow-sm animate-fade-in"
@@ -126,6 +127,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
             </button>
             <button
               onClick={() => setActiveTab("livegrid")}
+              aria-pressed={activeTab === "livegrid"}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
                 activeTab === "livegrid"
                   ? "bg-white text-purple-900 shadow-sm animate-fade-in"
@@ -137,6 +139,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
             </button>
             <button
               onClick={() => setActiveTab("web")}
+              aria-pressed={activeTab === "web"}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
                 activeTab === "web"
                   ? "bg-white text-emerald-900 shadow-sm animate-fade-in"
@@ -148,6 +151,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
             </button>
             <button
               onClick={() => setActiveTab("ssm")}
+              aria-pressed={activeTab === "ssm"}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all border-0 cursor-pointer ${
                 activeTab === "ssm"
                   ? "bg-white text-emerald-900 shadow-sm animate-fade-in"
@@ -369,7 +373,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
                 <span className="inline-flex items-center gap-1 bg-purple-50 text-purple-700 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
                   Android Play Store Model
                 </span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                <h2 className="section-title text-slate-900">
                   Free-to-Download with Premium Upgrade
                 </h2>
                 <p className="text-slate-600 text-sm leading-relaxed">
@@ -439,7 +443,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
               <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
                 Externally built app
               </span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="section-title text-slate-900">
                 SMARTSORT SALES MANAGER (SSM)
               </h2>
               <p className="text-slate-600 text-sm leading-relaxed">
@@ -467,7 +471,7 @@ export default function Pricing({ config, onPageChange }: PricingProps) {
               <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
                 Custom Enterprise Architecture
               </span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="section-title text-slate-900">
                 Quote-Based Software Projects
               </h2>
               <p className="text-slate-600 text-xs md:text-sm leading-relaxed">

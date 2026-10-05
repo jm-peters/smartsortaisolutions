@@ -52,7 +52,7 @@ export default function Contact({ config }: ContactProps) {
           <span className="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full">
             Direct Merchant Support
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="page-title text-slate-900">
             Get in Touch
           </h1>
           <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -143,7 +143,7 @@ export default function Contact({ config }: ContactProps) {
             <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm text-left">
               
               {state.succeeded ? (
-                <div className="py-12 px-4 text-center space-y-4">
+                <div role="status" aria-live="polite" className="py-12 px-4 text-center space-y-4">
                   <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
                     <CheckCircle className="w-8 h-8" />
                   </div>
@@ -162,20 +162,24 @@ export default function Contact({ config }: ContactProps) {
 
                   {/* Name Input */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
                       Full Name
                     </label>
                     <input
                       type="text"
+                      id="contact-name"
                       name="name"
                       required
+                      autoComplete="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all"
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
+                      className="form-control w-full px-3 text-base sm:text-sm"
                       placeholder="e.g. Mama Neri"
                     />
                     {errors.name && (
-                      <p className="text-xs text-rose-600 mt-1 flex items-center gap-1">
+                      <p id="contact-name-error" role="alert" className="text-xs text-rose-600 mt-1 flex items-center gap-1">
                         <AlertTriangle className="w-3.5 h-3.5" />
                         {errors.name}
                       </p>
@@ -185,15 +189,17 @@ export default function Contact({ config }: ContactProps) {
 
                   {/* Optional Shop Name Input */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    <label htmlFor="contact-shop-name" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
                       Business / Shop Name <span className="text-slate-400 font-normal">(Optional)</span>
                     </label>
                     <input
                       type="text"
+                      id="contact-shop-name"
                       name="shopName"
+                      autoComplete="organization"
                       value={formData.shopName}
                       onChange={(e) => setFormData({ ...formData, shopName: e.target.value })}
-                      className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all"
+                      className="form-control w-full px-3 text-base sm:text-sm"
                       placeholder="e.g. Mama Neri Fresh Kiosk"
                     />
                   </div>
@@ -202,20 +208,25 @@ export default function Contact({ config }: ContactProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {/* Phone */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                      <label htmlFor="contact-phone" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
                         Phone Number
                       </label>
                       <input
-                        type="text"
+                        type="tel"
+                        id="contact-phone"
                         name="phone"
                         required
+                        autoComplete="tel"
+                        inputMode="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all"
+                        aria-invalid={Boolean(errors.phone)}
+                        aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+                        className="form-control w-full px-3 text-base sm:text-sm"
                         placeholder="e.g. +254 757 706 978"
                       />
                       {errors.phone && (
-                        <p className="text-xs text-rose-600 mt-1 flex items-center gap-1">
+                        <p id="contact-phone-error" role="alert" className="text-xs text-rose-600 mt-1 flex items-center gap-1">
                           <AlertTriangle className="w-3.5 h-3.5" />
                           {errors.phone}
                         </p>
@@ -225,15 +236,18 @@ export default function Contact({ config }: ContactProps) {
 
                     {/* County Dropdown */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                      <label htmlFor="contact-county" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
                         County
                       </label>
                       <select
+                        id="contact-county"
                         name="county"
                         required
                         value={formData.county}
                         onChange={(e) => setFormData({ ...formData, county: e.target.value })}
-                        className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all bg-white"
+                        aria-invalid={Boolean(errors.county)}
+                        aria-describedby={errors.county ? "contact-county-error" : undefined}
+                        className="form-control w-full px-3 text-base sm:text-sm"
                       >
                         <option value="">Select County</option>
                         {countiesList.map((c) => (
@@ -243,7 +257,7 @@ export default function Contact({ config }: ContactProps) {
                         ))}
                       </select>
                       {errors.county && (
-                        <p className="text-xs text-rose-600 mt-1 flex items-center gap-1">
+                        <p id="contact-county-error" role="alert" className="text-xs text-rose-600 mt-1 flex items-center gap-1">
                           <AlertTriangle className="w-3.5 h-3.5" />
                           {errors.county}
                         </p>
@@ -254,20 +268,23 @@ export default function Contact({ config }: ContactProps) {
 
                   {/* Message Input */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
                       Message / Inquiry
                     </label>
                     <textarea
+                      id="contact-message"
                       rows={4}
                       name="message"
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full text-sm border border-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-xl px-3 py-2.5 outline-none transition-all resize-none"
+                      aria-invalid={Boolean(errors.message)}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
+                      className="form-control w-full px-3 py-2.5 text-base sm:text-sm resize-y"
                       placeholder="Type your inquiry here..."
                     ></textarea>
                     {errors.message && (
-                      <p className="text-xs text-rose-600 mt-1 flex items-center gap-1">
+                      <p id="contact-message-error" role="alert" className="text-xs text-rose-600 mt-1 flex items-center gap-1">
                         <AlertTriangle className="w-3.5 h-3.5" />
                         {errors.message}
                       </p>

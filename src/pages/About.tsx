@@ -89,10 +89,10 @@ export default function About({ config, onPageChange }: AboutProps) {
 
   const team = [
     {
-      name: "Peter Ngechu",
+      name: "Benson Mwangi",
       role: "Co-Founder & CEO",
       bio: "Over 8 years in digital logistics and wholesale distributions. Dedicated to bringing financial security and structured ledger software to the informal merchant economy.",
-      avatar: "PN"
+      avatar: "BM"
     },
     {
       name: "Ann Wanjiku Njoroge",
@@ -119,7 +119,7 @@ export default function About({ config, onPageChange }: AboutProps) {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-800 text-blue-400 text-xs font-bold rounded-full uppercase tracking-wider border border-slate-700/50">
             <BookOpen className="w-3.5 h-3.5" /> Our Core Mission
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+          <h1 className="page-title text-white">
             Empowering Kenyan micro- and macro-businesses with digital trust
           </h1>
           <p className="text-slate-300 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
@@ -152,7 +152,7 @@ export default function About({ config, onPageChange }: AboutProps) {
 
             {/* Story Text */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="section-title text-slate-900">
                 Who we are & how we operate
               </h2>
               <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -185,7 +185,7 @@ export default function About({ config, onPageChange }: AboutProps) {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-bold rounded-full uppercase tracking-wider border border-blue-500/20">
               <Smartphone className="w-3.5 h-3.5" /> Offline-First USSD Service
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+            <h2 className="section-title text-white">
               Access Ledgers Offline via USSD
             </h2>
             <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
@@ -583,6 +583,10 @@ export default function About({ config, onPageChange }: AboutProps) {
                               <input
                                 type="text"
                                 value={ussdInput}
+                                aria-label={ussdState === "main" ? "Choose a USSD menu option" : ussdState === "register_name" ? "Enter shop name" : "Enter amount in Kenyan shillings"}
+                                inputMode={ussdState === "main" || ussdState === "log_amount" || ussdState === "pay_amount" ? "decimal" : "text"}
+                                aria-invalid={Boolean(ussdError)}
+                                aria-describedby={ussdError ? "ussd-input-error" : undefined}
                                 onChange={(e) => {
                                   setUssdInput(e.target.value);
                                   setUssdError("");
@@ -598,7 +602,7 @@ export default function About({ config, onPageChange }: AboutProps) {
                               </button>
                             </div>
                             {ussdError && (
-                              <p className="text-[9px] text-rose-500">{ussdError}</p>
+                              <p id="ussd-input-error" role="alert" className="text-[9px] text-rose-500">{ussdError}</p>
                             )}
                           </form>
                         )}
@@ -629,7 +633,7 @@ export default function About({ config, onPageChange }: AboutProps) {
             <span className="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full">
               What Guides Us
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="section-title text-slate-900">
               Our commitment to merchants
             </h2>
             <p className="text-slate-600 text-sm">
@@ -662,7 +666,7 @@ export default function About({ config, onPageChange }: AboutProps) {
             <span className="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full">
               Meet The Founders
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="section-title text-slate-900">
               The Smartsort Leadership Team
             </h2>
             <p className="text-slate-600 text-sm">

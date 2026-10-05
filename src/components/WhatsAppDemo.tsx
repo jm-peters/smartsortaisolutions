@@ -158,6 +158,7 @@ export default function WhatsAppDemo() {
                 key={i}
                 type="button"
                 onClick={() => handleSend(p.text)}
+                disabled={isTyping}
                 className="w-full text-left bg-white border border-slate-200 hover:border-blue-500 hover:bg-blue-50/20 px-4 py-3 rounded-xl text-sm font-medium text-slate-800 transition-all flex items-center justify-between shadow-xs hover:shadow-md cursor-pointer group"
               >
                 <span className="flex items-center gap-2">
@@ -216,7 +217,7 @@ export default function WhatsAppDemo() {
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col text-xs scrollbar-thin">
+          <div role="log" aria-label="WhatsApp conversation simulation" aria-live="polite" aria-relevant="additions text" className="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col text-xs scrollbar-thin">
             <AnimatePresence initial={false}>
               {messages.map((m) => (
                 <motion.div
@@ -276,7 +277,7 @@ export default function WhatsAppDemo() {
                   exit={{ opacity: 0 }}
                   className="bg-white text-slate-500 rounded-2xl rounded-tl-none p-3 shadow-xs self-start max-w-[60px]"
                 >
-                  <div className="flex gap-1 items-center justify-center py-1">
+                  <div role="status" aria-label="Smartsort is typing" className="flex gap-1 items-center justify-center py-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce delay-150"></span>
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce delay-300"></span>
@@ -290,8 +291,10 @@ export default function WhatsAppDemo() {
           {/* WhatsApp Footer Input bar */}
           <div className="bg-slate-50/95 p-2 flex gap-2 items-center border-t border-slate-100">
             <input
+              aria-label="Type a simulated WhatsApp message"
               type="text"
               value={inputValue}
+              disabled={isTyping}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSend(inputValue);
@@ -301,9 +304,10 @@ export default function WhatsAppDemo() {
             />
             <button
               onClick={() => handleSend(inputValue)}
-              disabled={!inputValue.trim()}
+              disabled={!inputValue.trim() || isTyping}
+              aria-label="Send simulated message"
               type="button"
-              className="w-8 h-8 rounded-full bg-slate-900 hover:bg-slate-800 flex items-center justify-center text-white transition-colors disabled:bg-slate-300 disabled:text-slate-400"
+              className="w-10 h-10 shrink-0 rounded-full bg-brand-600 hover:bg-brand-700 flex items-center justify-center text-white transition-colors disabled:bg-slate-300 disabled:text-slate-500"
             >
               <Send className="w-4 h-4" />
             </button>

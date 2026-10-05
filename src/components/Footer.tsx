@@ -130,7 +130,7 @@ export default function Footer({ config, onPageChange }: FooterProps) {
               </button>
             </div>
             <p className="text-xs text-slate-500 pt-2 border-t border-slate-800">
-              {config.brandName} is a product operated by {config.legalName}.
+              Some products are operated by external providers. Review each product's information and terms before use.
             </p>
           </div>
 
@@ -144,7 +144,7 @@ export default function Footer({ config, onPageChange }: FooterProps) {
             </p>
             
             {status === "success" ? (
-              <div className="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl text-xs space-y-1 text-slate-300">
+              <div role="status" aria-live="polite" className="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl text-xs space-y-1 text-slate-300">
                 <p className="font-semibold text-blue-400 flex items-center gap-1.5">
                   <Check className="w-4 h-4" /> Subscription Active
                 </p>
@@ -153,20 +153,25 @@ export default function Footer({ config, onPageChange }: FooterProps) {
             ) : (
               <form onSubmit={handleSubscribe} className="space-y-2">
                 <div className="relative">
+                  <label htmlFor="newsletter-email" className="sr-only">Email address for service updates</label>
                   <input
+                    id="newsletter-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter business email"
+                    autoComplete="email"
+                    aria-invalid={status === "error"}
+                    aria-describedby={status === "error" ? "newsletter-error" : undefined}
                     disabled={status === "submitting"}
-                    className="w-full bg-slate-800 border border-slate-700 focus:border-blue-500 text-white placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs outline-none transition-all pr-10 disabled:opacity-50"
+                    className="form-control w-full bg-slate-800 border-slate-700 text-white placeholder-slate-500 px-3.5 pr-10 text-base sm:text-sm disabled:opacity-50"
                     required
                   />
                   <Mail className="absolute right-3 top-3 w-4 h-4 text-slate-500" />
                 </div>
                 
                 {status === "error" && (
-                  <p className="text-[11px] text-red-400 font-medium">
+                  <p id="newsletter-error" role="alert" className="text-[11px] text-red-400 font-medium">
                     {errorMessage}
                   </p>
                 )}
